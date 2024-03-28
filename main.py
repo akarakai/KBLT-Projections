@@ -1,5 +1,7 @@
 from logger import LOGGER
 from image_taker import ImageTaker
+from tomopy.prep.normalize import normalize
+from processing.recontructor import get_last_folder
 import numpy as np
 
 '''
@@ -9,6 +11,8 @@ if problems try lower resolution
 
 
 def main():
+    print(get_last_folder("test"))
+
     n_tomos = 4
     n_flats = 2
     n_darks = 2
@@ -23,6 +27,13 @@ def main():
     image_taker.save_images(sample_name)
 
     tomo_3d, flat_3d, dark_3d = image_taker.get_3d_arrays()
+    tomo_3d = normalize(tomo_3d, flat_3d, dark_3d)
+
+
+
+
+
+
 
 
 

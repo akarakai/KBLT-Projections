@@ -44,7 +44,7 @@ class ImageTaker:
 
 
     def save_images(self, sample_name):
-        tomos_path, flats_path, darks_path, projections_stacks_path = self._create_folders(sample_name)
+        tomos_path, flats_path, darks_path = self._create_folders(sample_name)
 
         save_images_type = [('tomo', self.tomos, tomos_path), ('flat', self.flats, flats_path),
                             ('dark', self.darks, darks_path)]
@@ -100,17 +100,15 @@ class ImageTaker:
 
         # Create the necessary folders
         projections_path = os.path.join(sample_path, "projections")
-        projections_stacks_path = os.path.join(sample_path, "projections_stacks")
         tomos_path = os.path.join(projections_path, "tomos")
         flats_path = os.path.join(projections_path, "flats")
         darks_path = os.path.join(projections_path, "darks")
 
-        os.makedirs(projections_stacks_path, exist_ok=True)
         os.makedirs(tomos_path, exist_ok=True)
         os.makedirs(flats_path, exist_ok=True)
         os.makedirs(darks_path, exist_ok=True)
 
-        return tomos_path, flats_path, darks_path, projections_stacks_path
+        return tomos_path, flats_path, darks_path
 
     def get_3d_arrays(self):
         # Get shape of a single image (resolution), it should be the same for tomos, flats and dark
