@@ -68,6 +68,20 @@ class ImageTaker:
                 photo_taken += 1
                 LOGGER.info(f"{mode} nr {len(images_list)} taken")
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def _create_folders(self, sample_name):
         base_path = "output"
         sample_path = os.path.join(base_path, sample_name)
@@ -98,8 +112,21 @@ class ImageTaker:
 
         return tomos_path, flats_path, darks_path, projections_stacks_path
 
-    def get_tomo_shape(self):
-        return self.tomos[0].get_array()
+    def get_3d_arrays(self):
+        # Get shape of a single image (resolution), it should be the same for tomos, flats and dark
+        resolution = self.tomos[0].get_array().shape
+        tomo_3d = np.empty((len(self.tomos), resolution[0], resolution[1]))
+        flat_3d = np.empty((len(self.flats), resolution[0], resolution[1]))
+        dark_3d = np.empty((len(self.darks), resolution[0], resolution[1]))
+        for i, tomo in enumerate(self.tomos):
+            tomo_3d[i, :, :] = tomo.get_array()
+        for i, flat in enumerate(self.flats):
+            flat_3d[i, :, :] = flat.get_array()
+        for i, dark in enumerate(self.darks):
+            dark_3d[i, :, :] = dark.get_array()
+
+        return tomo_3d, flat_3d, dark_3d
+
 
 
 def convert_to_grayscale(image):
