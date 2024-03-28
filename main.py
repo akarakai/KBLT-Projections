@@ -1,7 +1,7 @@
 from logger import LOGGER
 from image_taker import ImageTaker
 from tomopy.prep.normalize import normalize
-from processing.recontructor import get_last_folder
+from processing.recontructor import reconstruct
 import numpy as np
 
 '''
@@ -11,14 +11,13 @@ if problems try lower resolution
 
 
 def main():
-    print(get_last_folder("test"))
 
     n_tomos = 4
     n_flats = 2
     n_darks = 2
     url = "http://192.168.0.107:8080/video"
 
-    sample_name = "test"
+    sample_name = "spata"
 
     image_taker = ImageTaker(n_tomos, n_flats, n_darks, url)
     image_taker.get_tomos()
@@ -26,8 +25,8 @@ def main():
     image_taker.get_darks()
     image_taker.save_images(sample_name)
 
-    tomo_3d, flat_3d, dark_3d = image_taker.get_3d_arrays()
-    tomo_3d = normalize(tomo_3d, flat_3d, dark_3d)
+    tomos_3d, flats_3d, darks_3d = image_taker.get_3d_arrays()
+    reconstruct(tomos_3d, flats_3d, darks_3d, sample_name)
 
 
 

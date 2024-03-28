@@ -40,6 +40,7 @@ class ImageTaker:
 
     def get_darks(self):
         self._capture("dark", ".tiff", self.darks, self.n_darks)
+        self.camera.clean()
 
 
 
@@ -67,7 +68,6 @@ class ImageTaker:
                 images_list.append(image)
                 photo_taken += 1
                 LOGGER.info(f"{mode} nr {len(images_list)} taken")
-
 
 
 

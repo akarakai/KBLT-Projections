@@ -1,9 +1,7 @@
 from logger import LOGGER
 import cv2 as cv
 
-'''
-cv.imshow e' facoltativo, come feedback non credo serva
-'''
+
 
 
 class Camera:
@@ -14,5 +12,9 @@ class Camera:
     def get_ret_frame(self):
         return self.cap.read()
 
-    #def clean(self):
+    def clean(self):
+        cv.destroyAllWindows()
+        self.cap.release()
+
+
 
