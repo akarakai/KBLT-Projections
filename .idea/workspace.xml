@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bde841aa-967e-40f9-91b3-7e319bb07384" name="Changes" comment="first commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="bde841aa-967e-40f9-91b3-7e319bb07384" name="Changes" comment="add saving projections method">
+      <change beforePath="$PROJECT_DIR$/image_taker.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_taker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +22,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "akarakai"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="4b4a1fd0-6c47-4e5b-bfb0-fe0f83646e59" />
+        <option name="url" value="https://github.com/akarakai/KBLT-Projections.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -87,11 +102,29 @@
       <option name="project" value="LOCAL" />
       <updated>1711570871746</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added delay in taking tomos in respect to vibration detaction and adding sleep to vibration detection in order to avoid detecting multiple peaks during one pulse">
+      <option name="closed" value="true" />
+      <created>1711613583601</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711613583601</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add saving projections method">
+      <option name="closed" value="true" />
+      <created>1711617287090</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1711617287090</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="added delay in taking tomos in respect to vibration detaction and adding sleep to vibration detection in order to avoid detecting multiple peaks during one pulse" />
+    <MESSAGE value="add saving projections method" />
+    <option name="LAST_COMMIT_MESSAGE" value="add saving projections method" />
   </component>
 </project>

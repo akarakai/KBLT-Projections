@@ -1,3 +1,5 @@
+import numpy as np
+
 from logger import LOGGER
 from components.camera import Camera
 from components.microphone import Microphone
@@ -5,6 +7,8 @@ from components.image import Image
 import cv2 as cv
 import os
 import time
+from skimage import color
+from skimage.util import img_as_uint, img_as_ubyte, img_as_float32
 
 
 class ImageTaker:
@@ -22,7 +26,7 @@ class ImageTaker:
             while len(self.tomos) < self.n_tomos:
                 ret, frame = self.camera.get_ret_frame()
                 if self.microphone.is_vibrating():
-                    time.sleep(0.05) # Wait for ending of vibration just to be sure
+                    time.sleep(0.05)  # Wait for ending of vibration just to be sure
                     image = Image(frame, 'tomo', '.tiff', color_model="RGB")
                     self.tomos.append(image)
                     LOGGER.info(f"Tomo nr {len(self.tomos)} taken")
@@ -36,7 +40,6 @@ class ImageTaker:
 
     def get_darks(self):
         self._capture("dark", ".tiff", self.darks, self.n_darks)
-
 
     '''
     def save_images(self, sample_name):
@@ -59,19 +62,17 @@ class ImageTaker:
     '''
 
     def save_images(self, sample_name):
-        tomos_path, flats_path, darks_path = self._create_folders(sample_name)
+        tomos_path, flats_path, darks_path, projections_stacks_path = self._create_folders(sample_name)
 
         save_images_type = [('tomo', self.tomos, tomos_path), ('flat', self.flats, flats_path),
                             ('dark', self.darks, darks_path)]
 
         for image_type, images, path in save_images_type:
             for i, image in enumerate(images):
-                image_path = os.path.join(path, f"{image_type}_{'%04d' % (i+1)}.{image.get_extension()}")
+                image_path = os.path.join(path, f"{image_type}_{'%04d' % (i + 1)}.{image.get_extension()}")
+                image = convert_to_grayscale(image)
                 cv.imwrite(image_path, image.get_array())
-            LOGGER.info(f"{image_type.capitalize()}s saved successfully")
-
-
-
+            LOGGER.info(f"16-bit grayscale {image_type.upper()}S saved successfully in '{path}'")
 
     def _capture(self, mode, extension, images_list, n_photos):
         photo_taken = 0
@@ -84,7 +85,6 @@ class ImageTaker:
                 images_list.append(image)
                 photo_taken += 1
                 LOGGER.info(f"{mode} nr {len(images_list)} taken")
-
 
     def _create_folders(self, sample_name):
         base_path = "output"
@@ -104,12 +104,26 @@ class ImageTaker:
 
         # Create the necessary folders
         projections_path = os.path.join(sample_path, "projections")
+        projections_stacks_path = os.path.join(sample_path, "projections_stacks")
         tomos_path = os.path.join(projections_path, "tomos")
         flats_path = os.path.join(projections_path, "flats")
         darks_path = os.path.join(projections_path, "darks")
 
+        os.makedirs(projections_stacks_path, exist_ok=True)
         os.makedirs(tomos_path, exist_ok=True)
         os.makedirs(flats_path, exist_ok=True)
         os.makedirs(darks_path, exist_ok=True)
 
-        return tomos_path, flats_path, darks_path
+        return tomos_path, flats_path, darks_path, projections_stacks_path
+
+    def get_tomo_shape(self):
+        return self.tomos[0].get_array()
+
+
+def convert_to_grayscale(image):
+    conversion_factor = 32767
+    image.set_color_model('grayscale')
+    gray_array = color.rgb2gray(image.get_array()) * conversion_factor
+    gray_array = gray_array.astype(np.int16)
+    image.set_array(gray_array)
+    return image
