@@ -29,11 +29,13 @@ class Microphone:
         self.intensities.append(intensity)
         self.index += 1
         time.sleep(0.001)  # Adjust the delay as needed
-        # TODO CHANGE WITH TIME.SLEEP(), NOW I USE THIS METHOD WHICH SUCKS
-        if self.intensities[self.index] > 800 and self.intensities[self.index-1] < 150:
-            self.spike_counter += 1     # TO STOP PROGRAM WHEN REACHING 200
-            LOGGER.debug(f"Vibration pulse nr: {self.spike_counter} registered")
+
+        if intensity > 200:
+            self.spike_counter += 1
+            LOGGER.debug(f"Vibration pulse nr: {self.spike_counter} registered with intensity {intensity}")
+            time.sleep(0.8)
             return True
+
         return False        # I CARE ONLY IF IT READS PULSE
 
     def get_pulse_number(self):

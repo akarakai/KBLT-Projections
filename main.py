@@ -10,8 +10,8 @@ def main():
 
 
     image_taker = ImageTaker(n_tomos, n_flats, n_darks, url)
-    #image_taker.get_tomos()
-    image_taker.get_flats()
+    image_taker.get_tomos()
+    #image_taker.get_flats()
 
 
 

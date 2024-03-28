@@ -3,6 +3,7 @@ from components.camera import Camera
 from components.microphone import Microphone
 from components.image import Image
 import cv2 as cv
+import time
 
 
 class ImageTaker:
@@ -20,6 +21,7 @@ class ImageTaker:
             while len(self.tomos) < self.n_tomos:
                 ret, frame = self.camera.get_ret_frame()
                 if self.microphone.is_vibrating():
+                    time.sleep(0.05) # Wait for ending of vibration just to be sure
                     image = Image(frame, 'tomo', '.tiff', color_model="RGB")
                     self.tomos.append(image)
                     LOGGER.info(f"Tomo nr {len(self.tomos)} taken")
