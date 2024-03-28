@@ -41,25 +41,7 @@ class ImageTaker:
     def get_darks(self):
         self._capture("dark", ".tiff", self.darks, self.n_darks)
 
-    '''
-    def save_images(self, sample_name):
-        tomos_path, flats_path, darks_path = self._create_folders(sample_name)
-        for i in range(len(self.tomos)):
-            tomo_path = os.path.join(tomos_path, f"tomo_{'%04d' % i}")
-            cv.imwrite(tomo_path, self.tomos[i])
-        LOGGER.info("Tomos saved successfully")
 
-        for i in range(len(self.flats)):
-            flat_path = os.path.join(flats_path, f"flat_{'%04d' % i}")
-            cv.imwrite(flat_path, self.flats[i])
-        LOGGER.info("Flats saved successfully")
-
-        for i in range(len(self.darks)):
-            dark_path = os.path.join(darks_path, f"dark_{'%04d' % i}")
-            cv.imwrite(dark_path, self.darks[i])
-        LOGGER.info("Darks saved successfully")
-
-    '''
 
     def save_images(self, sample_name):
         tomos_path, flats_path, darks_path, projections_stacks_path = self._create_folders(sample_name)
@@ -69,7 +51,7 @@ class ImageTaker:
 
         for image_type, images, path in save_images_type:
             for i, image in enumerate(images):
-                image_path = os.path.join(path, f"{image_type}_{'%04d' % (i + 1)}.{image.get_extension()}")
+                image_path = os.path.join(path, f"{image_type}_{'%04d' % (i + 1)}{image.get_extension()}")
                 image = convert_to_grayscale(image)
                 cv.imwrite(image_path, image.get_array())
             LOGGER.info(f"16-bit grayscale {image_type.upper()}S saved successfully in '{path}'")
