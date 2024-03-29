@@ -25,6 +25,8 @@ class ImageTaker:
         try:
             while len(self.tomos) < self.n_tomos:
                 ret, frame = self.camera.get_ret_frame()
+                #cv.imshow(f"Tomos taken: {len(self.tomos)}/{self.n_tomos}", frame)
+                #cv.waitKey(1)
                 if self.microphone.is_vibrating():
                     time.sleep(0.05)  # Wait for ending of vibration just to be sure
                     image = Image(frame, 'tomo', '.tiff', color_model="RGB")
@@ -36,9 +38,11 @@ class ImageTaker:
             LOGGER.info("Exiting...")
 
     def get_flats(self):
+        LOGGER.info("Start tanking Flats")
         self._capture("flat", ".tiff", self.flats, self.n_flats)
 
     def get_darks(self):
+        LOGGER.info("Start tanking Darks")
         self._capture("dark", ".tiff", self.darks, self.n_darks)
         self.camera.clean()
 

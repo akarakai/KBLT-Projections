@@ -1,23 +1,21 @@
-from logger import LOGGER
 from image_taker import ImageTaker
-from tomopy.prep.normalize import normalize
 from processing.recontructor import reconstruct
-import numpy as np
 
 '''
 if problems try lower resolution
+TODO, SAVE A NORMALIZED
 '''
 
 
 
 def main():
 
-    n_tomos = 4
-    n_flats = 2
-    n_darks = 2
+    n_tomos = 200
+    n_flats = 20
+    n_darks = 20
     url = "http://192.168.0.107:8080/video"
 
-    sample_name = "spata"
+    sample_name = "LAMPADA"
 
     image_taker = ImageTaker(n_tomos, n_flats, n_darks, url)
     image_taker.get_tomos()

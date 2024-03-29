@@ -30,7 +30,7 @@ class Microphone:
         self.index += 1
         time.sleep(0.001)  # Adjust the delay as needed
 
-        if intensity > 200:
+        if intensity > 500:
             self.spike_counter += 1
             LOGGER.debug(f"Vibration pulse nr: {self.spike_counter} registered with intensity {intensity}")
             time.sleep(0.8)
