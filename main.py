@@ -1,12 +1,6 @@
 from image_taker import ImageTaker
 from processing.recontructor import reconstruct
 
-'''
-if problems try lower resolution
-TODO, SAVE A NORMALIZED
-'''
-
-
 
 def main():
 
@@ -15,7 +9,7 @@ def main():
     n_darks = 20
     url = "http://192.168.0.107:8080/video"
 
-    sample_name = "LAMPADA"
+    sample_name = "laaaaaamp"
 
     image_taker = ImageTaker(n_tomos, n_flats, n_darks, url)
     image_taker.get_tomos()
@@ -25,13 +19,6 @@ def main():
 
     tomos_3d, flats_3d, darks_3d = image_taker.get_3d_arrays()
     reconstruct(tomos_3d, flats_3d, darks_3d, sample_name)
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

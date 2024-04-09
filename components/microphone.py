@@ -17,26 +17,26 @@ class Microphone:
                                       frames_per_buffer=self.chunk)
         # WAIT, SHOULD THESE BE WRITTEN AS SELF? OR VARIABLES OUTSIDE CLASS?
         self.spike_counter = 0
-        self.index = -1     # USEFUL, maybe TO BE REMOVED WHEN IMPLEMENTING TIME.SLEEP()
+        self.index = -1  # USEFUL, maybe TO BE REMOVED WHEN IMPLEMENTING TIME.SLEEP()
         self.intensities = []
         LOGGER.debug("Microphone Initialized")
 
     # this should be in a while True loop in another file
     def is_vibrating(self):
-        data = self.stream.read(self.chunk, exception_on_overflow = False)
+        data = self.stream.read(self.chunk, exception_on_overflow=False)
         audio_data = np.frombuffer(data, dtype=np.int16)
-        intensity = np.sqrt(np.mean(audio_data.astype(np.float32)**2))
+        intensity = np.sqrt(np.mean(audio_data.astype(np.float32) ** 2))
         self.intensities.append(intensity)
         self.index += 1
-        time.sleep(0.001)  # Adjust the delay as needed
+        # time.sleep(0.001)  # Adjust the delay as needed
 
-        if intensity > 500:
+        if intensity > 200:
             self.spike_counter += 1
             LOGGER.debug(f"Vibration pulse nr: {self.spike_counter} registered with intensity {intensity}")
-            time.sleep(0.8)
+
             return True
 
-        return False        # I CARE ONLY IF IT READS PULSE
+        return False
 
     def get_pulse_number(self):
         return self.spike_counter
@@ -45,19 +45,3 @@ class Microphone:
         self.stream.stop_stream()
         self.stream.close()
         self.audio.terminate()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

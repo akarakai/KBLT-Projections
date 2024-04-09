@@ -20,12 +20,14 @@ def reconstruct(tomos_3d, flats_3d, darks_3d, sample_name):
     tomos[tomos == -np.inf] = 0
     tomos[tomos == np.inf] = 1
     data = tomopy.minus_log(tomos)
+   # data = np.nan_to_num(data)
     theta = tomopy.angles(data.shape[0], 0, 360)
 
     rot_center = (data.shape[2]) / 2.0
     LOGGER.info(f"Center of rotation image: {rot_center}")
 
-    #auto_rot_center = tomopy.find_center_pc(data[0], data[-1], tol=0.5, rotc_guess=rot_center)
+
+   # auto_rot_center = tomopy.find_center_pc(data[0], data[-1], tol=0.5, rotc_guess=rot_center)
     #LOGGER.info(f"Automatically detected center of rotation: {auto_rot_center}")
 
     slice_start = 0
@@ -35,6 +37,10 @@ def reconstruct(tomos_3d, flats_3d, darks_3d, sample_name):
     rec = tomopy.recon(data[:, slice_start:slice_end, :], theta=theta, center=rot_center, algorithm='gridrec')
     LOGGER.debug(f"END RECONSTRUCTION")
     rec = tomopy.circ_mask(rec, axis=0, ratio=0.95)
+
+    # Adjust the reconstruction
+    rec[rec < 0.0001] = 0
+
 
     # save slices in tiff format
     fname_out_tiff = os.path.join(get_last_folder(sample_name), "tomopy/")
@@ -66,13 +72,15 @@ def kblt_reconstruct(tomos_3d, flats_3d, sample_name):
         LOGGER.debug(f"Saved Normal in {normal_path}/normal_{i}.tiff'")
 
     data = tomopy.minus_log(tomos)
+   # data = np.nan_to_num(data)
+
     theta = tomopy.angles(data.shape[0], 0, 360)
 
     rot_center = (data.shape[2]) / 2.0
     LOGGER.info(f"Center of rotation image: {rot_center}")
 
-    #auto_rot_center = tomopy.find_center_pc(data[0], data[-1], tol=0.5, rotc_guess=rot_center)
-    #LOGGER.info(f"Automatically detected center of rotation: {auto_rot_center}")
+   # auto_rot_center = tomopy.find_center_pc(data[0], data[-1], tol=0.5, rotc_guess=rot_center)
+   # LOGGER.info(f"Automatically detected center of rotation: {auto_rot_center}")
 
     slice_start = 0
     slice_end = len(data[0])
@@ -81,6 +89,10 @@ def kblt_reconstruct(tomos_3d, flats_3d, sample_name):
     rec = tomopy.recon(data[:, slice_start:slice_end, :], theta=theta, center=rot_center, algorithm='gridrec')
     LOGGER.debug(f"END RECONSTRUCTION")
     rec = tomopy.circ_mask(rec, axis=0, ratio=0.95)
+
+    # Adjust also here
+    rec[rec < 0.0001] = 0
+
 
     # save slices in tiff format
     fname_out_tiff = os.path.join(get_last_folder(sample_name), "kblt/")

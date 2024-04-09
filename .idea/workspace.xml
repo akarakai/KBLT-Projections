@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bde841aa-967e-40f9-91b3-7e319bb07384" name="Changes" comment="clean camera and other">
+    <list default="true" id="bde841aa-967e-40f9-91b3-7e319bb07384" name="Changes" comment="added kblt reconstruction and normalization of LARSSON, also save in foldar">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/components/microphone.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image_taker.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_taker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/logger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processing/recontructor.py" beforeDir="false" afterPath="$PROJECT_DIR$/processing/recontructor.py" afterDir="false" />
     </list>
@@ -54,15 +56,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/akaci/Uni/BACHELOR/KBLT-Projections&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="KBLT-Projections" />
@@ -167,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711629441396</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added kblt reconstruction and normalization of LARSSON, also save in foldar">
+      <option name="closed" value="true" />
+      <created>1711722050281</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1711722050281</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -179,6 +191,7 @@
     <MESSAGE value="3d array of image compatible with tomopy" />
     <MESSAGE value="add tomopy reconstruction" />
     <MESSAGE value="clean camera and other" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean camera and other" />
+    <MESSAGE value="added kblt reconstruction and normalization of LARSSON, also save in foldar" />
+    <option name="LAST_COMMIT_MESSAGE" value="added kblt reconstruction and normalization of LARSSON, also save in foldar" />
   </component>
 </project>

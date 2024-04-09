@@ -8,12 +8,11 @@ import cv2 as cv
 import os
 import time
 from skimage import color
-from skimage.util import img_as_uint, img_as_ubyte, img_as_float32
 
 
 class ImageTaker:
     def __init__(self, n_tomos, n_flats, n_darks, url):
-        # n_tomos sarebbero gli steps
+
         self.n_tomos, self.tomos = n_tomos, []
         self.n_flats, self.flats = n_flats, []
         self.n_darks, self.darks = n_darks, []
@@ -22,20 +21,28 @@ class ImageTaker:
         self.microphone = Microphone()
 
     def get_tomos(self):
+
         try:
             while len(self.tomos) < self.n_tomos:
+
                 ret, frame = self.camera.get_ret_frame()
-                #cv.imshow(f"Tomos taken: {len(self.tomos)}/{self.n_tomos}", frame)
-                #cv.waitKey(1)
+                cv.imshow("Tomograms", frame)
+                cv.waitKey(1)
                 if self.microphone.is_vibrating():
-                    time.sleep(0.05)  # Wait for ending of vibration just to be sure
                     image = Image(frame, 'tomo', '.tiff', color_model="RGB")
                     self.tomos.append(image)
                     LOGGER.info(f"Tomo nr {len(self.tomos)} taken")
+                    time.sleep(0.5)
+
+
         except KeyboardInterrupt:
             LOGGER.info("Keyboard interrupt received. Cleaning...")
             self.microphone.clean()
             LOGGER.info("Exiting...")
+
+        # Release the window
+        cv.destroyAllWindows()
+
 
     def get_flats(self):
         LOGGER.info("Start tanking Flats")
