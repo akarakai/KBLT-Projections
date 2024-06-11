@@ -4,7 +4,6 @@ import dxchange
 import numpy as np
 from logger import LOGGER
 import os
-import time
 import tomopy.util.mproc as mproc
 import tomopy.util.dtype as dtype
 import numexpr as ne
@@ -14,8 +13,8 @@ import cv2 as cv
 # TODO, REWRITE MORE COMPACT THE TWO RECONSTRUCTION FUNCTIONS
 
 
-def reconstruct(tomos_3d, flats_3d, darks_3d, sample_name):
-    tomos = normalize(tomos_3d, flats_3d, darks_3d)
+def reconstruct(tomos_3d, flats_3d, darks_3d, sample_name, algorithm="gridrec"):
+    tomos = normalize(tomos_3d, flats_3d, darks_3d, cutoff=1.0)
     tomos[np.isnan(tomos)] = 0
     tomos[tomos == -np.inf] = 0
     tomos[tomos == np.inf] = 1
@@ -26,24 +25,51 @@ def reconstruct(tomos_3d, flats_3d, darks_3d, sample_name):
     rot_center = (data.shape[2]) / 2.0
     LOGGER.info(f"Center of rotation image: {rot_center}")
 
+    fname_out_tiff = get_last_folder(sample_name)
+    normal_path = os.path.join(fname_out_tiff, "normalized_tomopy")
+    os.makedirs(normal_path, exist_ok=True)
 
-   # auto_rot_center = tomopy.find_center_pc(data[0], data[-1], tol=0.5, rotc_guess=rot_center)
-    #LOGGER.info(f"Automatically detected center of rotation: {auto_rot_center}")
+    LOGGER.debug("Starting saving normals")
+    for i, tomo in enumerate(tomos):
+        cv.imwrite(f'{normal_path}/normal_{i}.tiff', tomo)
+        LOGGER.debug(f"Saved Normal in {normal_path}/normal_{i}.tiff'")
+
+
+
+
+
+
 
     slice_start = 0
     slice_end = len(data[0])
+
+
+
+    '''
+    algorithms = ['art', 'bart', 'fbp', 'gridrec', 'mlem', 'osem',
+                  'ospml_hybrid', 'ospml_quad', 'pml_hybrid', 'pml_quad',
+                  'sirt', 'tv', 'grad', 'tikh']
+
+    for algorithm in algorithms:
+        rec = tomopy.recon(data[:, slice_start:slice_end, :], theta=theta, center=rot_center, algorithm=algorithm)
+        rec = tomopy.circ_mask(rec, axis=0, ratio=0.95)
+        fname_out_tiff = os.path.join(get_last_folder(sample_name), f"tomopy_{algorithm}/")
+        os.makedirs(fname_out_tiff, exist_ok=True)
+        LOGGER.info(f"Saving slices in '{fname_out_tiff}'")
+        dxchange.write_tiff_stack(rec[:, :, :], fname=fname_out_tiff + 'slice')
+        LOGGER.info("Slices saved successfully")
+
+    '''
 
     LOGGER.debug("START RECONSTRUCTION")
     rec = tomopy.recon(data[:, slice_start:slice_end, :], theta=theta, center=rot_center, algorithm='gridrec')
     LOGGER.debug(f"END RECONSTRUCTION")
     rec = tomopy.circ_mask(rec, axis=0, ratio=0.95)
 
-    # Adjust the reconstruction
-    rec[rec < 0.0001] = 0
 
 
     # save slices in tiff format
-    fname_out_tiff = os.path.join(get_last_folder(sample_name), "tomopy/")
+    fname_out_tiff = os.path.join(get_last_folder(sample_name), f"tomopy_{algorithm}/")
     os.makedirs(fname_out_tiff) if not os.path.exists(fname_out_tiff) else None
 
     LOGGER.info(f"Saving slices in '{fname_out_tiff}'")
@@ -51,11 +77,25 @@ def reconstruct(tomos_3d, flats_3d, darks_3d, sample_name):
     LOGGER.info("Slices saved successfully")
 
 
-    LOGGER.debug("Now KBLT Reconstruction (LARSSON)")
-    kblt_reconstruct(tomos_3d, flats_3d, sample_name)
+
+    kblt_reconstruct(tomos_3d, flats_3d, sample_name, algorithm)
 
 
-def kblt_reconstruct(tomos_3d, flats_3d, sample_name):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def kblt_reconstruct(tomos_3d, flats_3d, sample_name, algorithm):
     tomos = kblt_normalize(tomos_3d, flats_3d)
     tomos[np.isnan(tomos)] = 0
     tomos[tomos == -np.inf] = 0
@@ -84,24 +124,45 @@ def kblt_reconstruct(tomos_3d, flats_3d, sample_name):
 
     slice_start = 0
     slice_end = len(data[0])
+    
+
+    '''
+    algorithms = ['art', 'bart', 'fbp', 'gridrec', 'mlem', 'osem',
+                  'ospml_hybrid', 'ospml_quad', 'pml_hybrid', 'pml_quad',
+                  'sirt', 'tv', 'grad', 'tikh']
+
+    for algorithm in algorithms:
+        rec = tomopy.recon(data[:, slice_start:slice_end, :], theta=theta, center=rot_center, algorithm=algorithm)
+        rec = tomopy.circ_mask(rec, axis=0, ratio=0.95)
+        fname_out_tiff = os.path.join(get_last_folder(sample_name), f"kblt_{algorithm}/")
+        os.makedirs(fname_out_tiff, exist_ok=True)
+        LOGGER.info(f"Saving slices in '{fname_out_tiff}'")
+        dxchange.write_tiff_stack(rec[:, :, :], fname=fname_out_tiff + 'slice')
+        LOGGER.info("Slices saved successfully")
+
+
+    '''
+
+
+
+
+
 
     LOGGER.debug("START RECONSTRUCTION")
-    rec = tomopy.recon(data[:, slice_start:slice_end, :], theta=theta, center=rot_center, algorithm='gridrec')
+    rec = tomopy.recon(data[:, slice_start:slice_end, :], theta=theta, center=rot_center, algorithm=algorithm)
     LOGGER.debug(f"END RECONSTRUCTION")
     rec = tomopy.circ_mask(rec, axis=0, ratio=0.95)
 
-    # Adjust also here
-    rec[rec < 0.0001] = 0
+
 
 
     # save slices in tiff format
-    fname_out_tiff = os.path.join(get_last_folder(sample_name), "kblt/")
+    fname_out_tiff = os.path.join(get_last_folder(sample_name), f"kblt_{algorithm}/")
     os.makedirs(fname_out_tiff) if not os.path.exists(fname_out_tiff) else None
 
     LOGGER.info(f"Saving slices in '{fname_out_tiff}'")
     dxchange.write_tiff_stack(rec[:, :, :], fname=fname_out_tiff + 'slice')
     LOGGER.info("Slices saved successfully")
-
 
 def kblt_normalize(arr, flat, cutoff=1.0, ncore=None, out=None):
     """
@@ -152,3 +213,6 @@ def get_last_folder(sample_name):
     sorted_names = sorted(filtered_directories, key=lambda name: (
         name.startswith(sample_name), -int(name.split('_')[-1]) if '_' in name else 0))
     return f'output/{sorted_names[0]}/recons/'
+
+
+

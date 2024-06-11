@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bde841aa-967e-40f9-91b3-7e319bb07384" name="Changes" comment="added kblt reconstruction and normalization of LARSSON, also save in foldar">
+    <list default="true" id="bde841aa-967e-40f9-91b3-7e319bb07384" name="Changes" comment="changed mic sleep time and add filtering of reconstruction">
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/components/microphone.py" afterDir="false" />
@@ -39,13 +39,14 @@
     &quot;assignee&quot;: &quot;akarakai&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="4b4a1fd0-6c47-4e5b-bfb0-fe0f83646e59" />
-        <option name="url" value="https://github.com/akarakai/KBLT-Projections.git" />
-      </UrlAndAccount>
-    </option>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/akarakai/KBLT-Projections.git&quot;,
+    &quot;accountId&quot;: &quot;4b4a1fd0-6c47-4e5b-bfb0-fe0f83646e59&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/python-ce/helpers/typeshed/stdlib/builtins.pyi" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -64,7 +65,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/akaci/Uni/BACHELOR/KBLT-Projections&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.weisj.darkmode.DarkModeConfigurable&quot;
   }
 }</component>
   <component name="RunManager">
@@ -94,7 +95,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
+        <option value="bundled-python-sdk-0509580d9d50-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.14494.241" />
       </set>
     </attachedChunks>
   </component>
@@ -179,8 +180,27 @@
       <option name="project" value="LOCAL" />
       <updated>1711722050281</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="changed mic sleep time and add filtering of reconstruction">
+      <option name="closed" value="true" />
+      <created>1712695270329</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1712695270329</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
@@ -192,6 +212,7 @@
     <MESSAGE value="add tomopy reconstruction" />
     <MESSAGE value="clean camera and other" />
     <MESSAGE value="added kblt reconstruction and normalization of LARSSON, also save in foldar" />
-    <option name="LAST_COMMIT_MESSAGE" value="added kblt reconstruction and normalization of LARSSON, also save in foldar" />
+    <MESSAGE value="changed mic sleep time and add filtering of reconstruction" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed mic sleep time and add filtering of reconstruction" />
   </component>
 </project>

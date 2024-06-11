@@ -27,12 +27,12 @@ class ImageTaker:
 
                 ret, frame = self.camera.get_ret_frame()
                 cv.imshow("Tomograms", frame)
-                cv.waitKey(1)
+                #cv.waitKey(1)
                 if self.microphone.is_vibrating():
                     image = Image(frame, 'tomo', '.tiff', color_model="RGB")
                     self.tomos.append(image)
                     LOGGER.info(f"Tomo nr {len(self.tomos)} taken")
-                    time.sleep(0.5)
+                    time.sleep(0.9)
 
 
         except KeyboardInterrupt:
@@ -121,6 +121,8 @@ class ImageTaker:
 
         return tomos_path, flats_path, darks_path
 
+
+    # TODO QUESTO MI SEMBRA INUTILE? BASTA CHE FAI WRAPPI N[P.ARRAY()
     def get_3d_arrays(self):
         # Get shape of a single image (resolution), it should be the same for tomos, flats and dark
         resolution = self.tomos[0].get_array().shape
