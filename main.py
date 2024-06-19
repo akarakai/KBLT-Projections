@@ -10,7 +10,7 @@ def main():
     n_darks = 20
     url = "http://192.168.0.107:8080/video"
 
-    sample_name = "motorTest"
+    sample_name = "sample"
 
     image_taker = ImageTaker(n_tomos, n_flats, n_darks, url)
     image_taker.get_tomos()
